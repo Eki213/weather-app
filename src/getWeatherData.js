@@ -43,6 +43,7 @@ export async function getWeatherData(location) {
       throw new Error(`Response status: ${response.status}`);
     }
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (e) {
     console.error(e.message);
