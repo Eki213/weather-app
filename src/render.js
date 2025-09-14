@@ -63,3 +63,10 @@ export function updateTemperatures(scale) {
     temperatures[1].textContent = maxTemp;
   });
 }
+
+export function toggleLoading() {
+  const spinner = document.querySelector(".spinner");
+  const forecastEl = document.querySelector(".forecast");
+  spinner.hidden = !spinner.hidden;
+  forecastEl.hidden = !forecastEl.hidden;
+}

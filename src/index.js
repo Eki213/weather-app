@@ -1,6 +1,7 @@
 import { getWeatherData } from "./getWeatherData";
-import { render, updateTemperatures } from "./render";
+import { render, toggleLoading, updateTemperatures } from "./render";
 import { saveTemperatures } from "./temperatureData";
+import "./styles.css";
 
 const form = document.querySelector("header form");
 const select = document.querySelector(".select");
@@ -10,10 +11,11 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!form.reportValidity()) return;
 
+  toggleLoading();
   const locationInput = form.querySelector("input");
   const weatherData = await getWeatherData(locationInput.value);
   saveTemperatures(weatherData);
-  render(weatherData, currentScale);
+  render(weatherData, currentScale).then(toggleLoading);
 });
 
 select.addEventListener("click", (e) => {
