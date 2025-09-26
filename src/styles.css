@@ -141,7 +141,8 @@ span.active {
   background-color: blue;
 }
 
-.forecast .dayItem {
+.forecast .dayItem,
+.error {
   gap: 3rem;
   padding: 1rem;
   list-style: none;
@@ -179,10 +180,15 @@ span.active {
   display: none;
 }
 
+.error {
+  background-color: rgb(233, 45, 45);
+  color: white;
+}
+
 .spinner {
   width: 3rem;
   height: 3rem;
-  border: 0.5rem solid grey;
+  border: 0.5rem solid rgb(83, 83, 83);
   border-top: 0.5rem solid blue;
   border-radius: 50%;
   animation: spin 2s linear infinite;

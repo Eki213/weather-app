@@ -60,7 +60,6 @@ function createDayItem(formattedDay) {
 
   dayItem.appendChild(info);
   dayItem.appendChild(descriptionDiv);
-  console.log(formattedDay);
 
   return dayItem;
 }
@@ -68,6 +67,12 @@ function createDayItem(formattedDay) {
 export async function render(data, scale = "fahrenheit") {
   const forecastEl = document.querySelector(".forecast");
   forecastEl.replaceChildren();
+
+  if (!data) {
+    const errorEl = renderError();
+    forecastEl.appendChild(errorEl);
+    return;
+  }
 
   for (let [index, dayData] of data.days.entries()) {
     const formattedDay = await format(dayData, index, scale);
@@ -93,4 +98,13 @@ export function toggleLoading() {
   const forecastEl = document.querySelector(".forecast");
   spinner.hidden = !spinner.hidden;
   forecastEl.hidden = !forecastEl.hidden;
+}
+
+function renderError() {
+  const errorEl = document.createElement("div");
+  errorEl.className = "error";
+
+  errorEl.textContent = "No results found.";
+
+  return errorEl;
 }

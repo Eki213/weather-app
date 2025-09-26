@@ -8,7 +8,6 @@ export function saveTemperatures(data) {
       celsius: [toCelsius(dayData.tempmin), toCelsius(dayData.tempmax)],
     });
   });
-  console.log(temperatures);
 }
 
 export const getTemperatures = () => [...temperatures];
