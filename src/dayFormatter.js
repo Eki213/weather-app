@@ -6,7 +6,7 @@ export async function format(dayData, index, scale) {
 
   formattedDay.precipprob = `${dayData.precipprob}%`;
   const date = parse(dayData.datetime, "yyyy-MM-dd", new Date());
-  formattedDay.datetime = formatDate(date, "EEEE, d MMM");
+  formattedDay.datetime = formatDate(date, "E, d MMM");
 
   const [minTemp, maxTemp] = formatTemp(index, scale);
   formattedDay.tempmin = minTemp;

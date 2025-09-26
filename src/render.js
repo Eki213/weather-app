@@ -1,4 +1,5 @@
 import { format, formatTemp } from "./dayFormatter";
+import waterDropImg from "../assets/water-drop.png";
 
 function createDayItem(formattedDay) {
   const dayItem = document.createElement("li");
@@ -6,18 +7,47 @@ function createDayItem(formattedDay) {
 
   const datePara = document.createElement("p");
   datePara.textContent = formattedDay.datetime;
+  datePara.className = "date";
 
   const icon = document.createElement("img");
   icon.src = formattedDay.icon;
+  const iconContainer = document.createElement("div");
+  iconContainer.className = "icon";
+  iconContainer.appendChild(icon);
+
+  const info = document.createElement("div");
+  info.className = "info";
 
   const temperaturesDiv = document.createElement("div");
   temperaturesDiv.className = "temperatures";
   const minTempPara = document.createElement("p");
   minTempPara.textContent = formattedDay.tempmin;
+  minTempPara.className = "min-temp";
   const maxTempPara = document.createElement("p");
   maxTempPara.textContent = formattedDay.tempmax;
-  temperaturesDiv.appendChild(minTempPara);
+  maxTempPara.className = "max-temp";
   temperaturesDiv.appendChild(maxTempPara);
+  temperaturesDiv.appendChild(minTempPara);
+
+  const precipEl = document.createElement("div");
+  precipEl.className = "precip";
+  const precipProbPara = document.createElement("p");
+  precipProbPara.textContent = formattedDay.precipprob;
+  precipProbPara.className = "precip-prob";
+
+  const precipImgContainer = document.createElement("div");
+  precipImgContainer.className = "precip-img";
+  const precipImg = document.createElement("img");
+  precipImg.src = waterDropImg;
+  precipImgContainer.appendChild(precipImg);
+
+  precipEl.appendChild(precipImgContainer);
+  precipEl.appendChild(precipProbPara);
+
+  info.appendChild(datePara);
+  info.appendChild(iconContainer);
+  info.appendChild(temperaturesDiv);
+  info.appendChild(precipEl);
 
   const descriptionDiv = document.createElement("div");
   descriptionDiv.className = "description";
@@ -28,14 +58,8 @@ function createDayItem(formattedDay) {
   descriptionDiv.appendChild(conditionsPara);
   descriptionDiv.appendChild(infoPara);
 
-  const precipProbPara = document.createElement("p");
-  precipProbPara.textContent = formattedDay.precipprob;
-
-  dayItem.appendChild(datePara);
-  dayItem.appendChild(icon);
-  dayItem.appendChild(temperaturesDiv);
+  dayItem.appendChild(info);
   dayItem.appendChild(descriptionDiv);
-  dayItem.appendChild(precipProbPara);
   console.log(formattedDay);
 
   return dayItem;
@@ -59,8 +83,8 @@ export function updateTemperatures(scale) {
   dayItems.forEach((dayItem, index) => {
     const [minTemp, maxTemp] = formatTemp(index, scale);
     const temperatures = dayItem.querySelectorAll(".temperatures p");
-    temperatures[0].textContent = minTemp;
-    temperatures[1].textContent = maxTemp;
+    temperatures[0].textContent = maxTemp;
+    temperatures[1].textContent = minTemp;
   });
 }
 
